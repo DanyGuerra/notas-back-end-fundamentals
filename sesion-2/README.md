@@ -112,3 +112,133 @@ Para comprobar que esta funcionando de manera correcta, se realizara una peticio
 
 
 ![Resultado peticion](./images/peticion-prueba.png)
+
+
+## Ejemplo CRUD
+
+Para que nuestra API sea REST era necesario que tener el CRUD completo y hasta ahora solo hemos trabajado con GET. Así como existe .get() Express tiene un método para cada petición de HTTP que funcionan de la misma forma.
+
+|   | HTTP   | Express   |
+|---|--------|-----------|
+| C | `POST`   | `.post()`   |
+| R | `GET`    | `.get()`    |
+| U | `PUT`    | `.put()`    |
+| D | `DELETE` | `.delete(`) |
+
+Para poder acceder al body es necesario definir un mecanismo que lo parsee para convertirlo en un objeto de JavaScript. Recordemos que la API se encarga también de la compatibilidad de los datos entre las aplicaciones.
+
+Nosotros vamos a usar `body-parser` que es una biblioteca de JavaScript que traduce el body de un request. Para usarla agregamos las siguientes lineas antes de la definición de los servicios.
+
+El codigo queda de la siguiente manera incluyendo CRUD.
+
+```javascript
+const express = require('express');
+const app = express();
+
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+const PORT = 4001;
+app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
+});
+
+const gods = {
+  Zeus: { live: 'Olympus', symbol: 'Thunderbolt' },
+  Hades : { live : 'Underworld', symbol: 'Cornucopia' }
+};
+
+app.get('/gods', (req, res, next) => {
+  res.send(gods);
+});
+
+app.get('/gods/:name', (req, res) =>{
+  var name = req.params.name;
+  var god = gods[name]
+  if (god){
+    res.send(god)
+  } else {
+    res.status(418).send("No encontre el dios")
+  }
+})
+
+app.put('/gods/:name', (req, res)=>{
+  var god = req.params.name;
+  gods[god] = req.body
+  res.send(gods)
+})
+
+app.post('/gods', (req,res)=>{
+  var name = req.query.name;
+  var info = req.body;
+  gods[name] = info;
+  res.status(200).send(gods)
+})
+
+app.delete('/gods/:name', (req,res)=>{
+  var name = req.params.name;
+  delete gods[name]
+  res.send(gods)
+})
+```
+
+Para probar cada uno de los metodos se usara Insomnia.
+
+### Resultados
+#### GET (Obetener)
+
+![Obtener](./images/get-gods.png)
+
+#### PUT (Actualizar)
+- Codigo:
+  ```javascript
+  app.put('/gods/:name', (req, res)=>{
+    var god = req.params.name;
+    gods[god] = req.body
+    res.send(gods)
+  })
+  ```
+
+- body:
+  ```javascript
+  {
+    "live": "London",
+    "symbol": "Perrito"
+  }
+  ```
+- Resultado:
+![Obtener](./images/put-gods.png)
+
+#### POST
+- Codigo:
+  ```javascript
+  app.post('/gods', (req,res)=>{
+    var name = req.query.name;
+    var info = req.body;
+    gods[name] = info;
+    res.status(200).send(gods)
+  })
+  ```
+
+- body:
+  ```javascript
+  {
+    "live": "Ocean",
+    "symbol": "Posseidon"
+  }
+  ```
+- Resultado:
+![Obtener](./images/post-gods.png)
+
+#### DELETE
+- Codigo:
+  ```javascript
+  app.delete('/gods/:name', (req,res)=>{
+  var name = req.params.name;
+  delete gods[name]
+  res.send(gods)
+  ```
+
+- Resultado:
+![Obtener](./images/delete-gods.png)
