@@ -208,6 +208,7 @@ Para probar cada uno de los metodos se usara Insomnia.
   }
   ```
 - Resultado:
+
 ![Obtener](./images/put-gods.png)
 
 #### POST
@@ -229,6 +230,7 @@ Para probar cada uno de los metodos se usara Insomnia.
   }
   ```
 - Resultado:
+
 ![Obtener](./images/post-gods.png)
 
 #### DELETE
@@ -241,4 +243,5 @@ Para probar cada uno de los metodos se usara Insomnia.
   ```
 
 - Resultado:
+
 ![Obtener](./images/delete-gods.png)
