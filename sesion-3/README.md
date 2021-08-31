@@ -173,6 +173,65 @@ router.get('/', (req, res)=>{
 
 router.use('/usuarios', require('./usuarios'));
 router.use('/mascotas', require('./mascotas'));
+router.use('/solicitudes', require('./solicitudes'));
+
+module.exports = router;
+```
+
+Una vez que se accede al archivo de `index.js` en este codigo dirigiremos a cada entidad dependiendo la direccion que se tenga en el servidor.
+
+El codigo de cada una de las entidades son las llamadas a las funciones de los servicios CRUD, los codigos para cada entidad son los siguientes.
+
+```javascript
+const router = require('express').Router();
+
+const {
+  crearMascota,
+  obtenerMascota,
+  modificarMascota,
+  eliminarMascota
+} = require('../controllers/mascotas');
+
+router.get('/', obtenerMascota)
+router.post('/', crearMascota)
+router.put('/:id', modificarMascota)
+router.delete('/:id', eliminarMascota)
+
+module.exports = router;
+```
+
+```javascript
+let router = require('express').Router()
+
+let {
+  crearSolicitud,
+  obtenerSolicitud,
+  modificarSolicitud,
+  eliminarSolicitud
+} = require('../controllers/solicitudes');
+
+router.get('/', obtenerSolicitud);
+router.post('/', crearSolicitud);
+router.put('/:id', modificarSolicitud);
+router.delete('/:id', eliminarSolicitud);
+
+module.exports = router;
+```
+
+```javascript
+const router = require('express').Router();
+
+const {
+  crearUsuario,
+  obtenerUsuarios,
+  modificarUsuario,
+  eliminarUsuario
+} = require('../controllers/usuarios');
+
+router.get('/', obtenerUsuarios)
+router.post('/', crearUsuario)
+router.put('/:id', modificarUsuario)
+router.delete('/:id', eliminarUsuario)
 
 module.exports = router;
 ```
@@ -270,6 +329,41 @@ module.exports = {
   eliminarUsuario
 }
 ```
+```javascript
+const Solicitud = require('../models/Solicitud')
 
+// CRUD
+
+function crearSolicitud(req, res){
+  let solicitud = new Solicitud(req.body);
+  res.status(200).send(solicitud);
+}
+
+function obtenerSolicitud(req, res){
+  let solicitud1 = new Solicitud(1, 2, '25/06/2021', 3, 2, 'Activa')
+    let solicitud2 = new Solicitud(2, 5, '5/12/2021', 4, 1, 'Rechazada')
+    res.send([solicitud1,solicitud2])
+}
+
+function modificarSolicitud(req, res){
+  let solicitud = new Solicitud(req.params.id,2, '25/06/2021', 3, 2, 'Activa')
+  let modificaciones = req.body
+  solicitud = {...solicitud,...modificaciones }
+  res.send(solicitud)
+}
+
+function eliminarSolicitud(req, res){
+  res.status(200).send(`La solicitud ${req.params.id} se elimino`)
+}
+
+module.exports = {
+  crearSolicitud,
+  obtenerSolicitud,
+  modificarSolicitud,
+  eliminarSolicitud
+}
+
+
+```
 ## Conclusiones
 De esta manera modularizando nuestra aplicación se tiene el proyecto mas organizado de una manera esquematizada y si por alguna razon llega haber algún tipo de error en nuestro codigo es mas facil solucionarlo, de igual manera es mejor el entendimiento del funcionamiento del proyecto y sera mejor el mantenimiento de la misma.
