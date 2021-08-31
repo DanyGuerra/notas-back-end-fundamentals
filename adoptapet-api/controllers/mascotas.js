@@ -12,7 +12,6 @@ function obtenerMascota(req, res) {
 }
 
 function modificarMascota(req, res) {
-  let mascota1 = new Mascota(req.params.id, 'Firulais', 'Perro', 'https://petstore/photo-firulais', 'Tiene manchas negras', 'Dany', 'Guanajuato')
   let modificaciones = req.body
   mascota1 = { ...usuario1, ...modificaciones}
   res.send(mascota1)

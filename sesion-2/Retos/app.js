@@ -40,7 +40,7 @@ const constelaciones = {
   }
 }
 
-//*****Reto 1 */
+//************************************Reto 1 **********************************************/
 
 // app.get("/constelaciones", (request, response)=>{
 //     response.send(constelaciones);
@@ -58,7 +58,7 @@ const constelaciones = {
 // })
 
 
-//**********REto 2 *****/
+//************************************Reto 2 ****************************************/
 const findAttr = (attr)=>{
   for(let constelacion in constelaciones){
     let atributos = constelaciones[constelacion]
@@ -85,3 +85,6 @@ app.get("/constelaciones/:attr", (req, res)=>{
     res.status(404).send('Constelacion no encontrada');
   }
 })
+
+
+//**************************************Reto 3 ****************************************/

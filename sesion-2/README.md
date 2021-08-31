@@ -1,4 +1,4 @@
-# Sesión 2 - Middleware API
+# Sesión 2: Middleware API
 
 En esencia, el middleware es la conexión que existe entre el lado del cliente (la interfaz de usuarix) y el lado del servidor (el servidor y la base de datos). Pensemos en el middleware como la plomería de una casa que se encarga de llevar todos los recursos (Agua, gas, electricidad, etc.) a las personas que la habitan.
 
