@@ -28,6 +28,76 @@ Continuando con AdoptaPet, podemos identificar cuatro entidades principales:
 
 Estos tres elementos serán nuestros modelos. Utilizando programación orientada a objetos podemos crear una clase para cada uno y así posteriormente el usuario podrá utilizar estos modelos creando instancias y obteniéndolas.
 
+# 2. Vista
+
+Cuando iniciamos un proyecto desde cero, es recomendable diseñar y documentar nuestras vistas por medio de bocetos de las interfaces necesarias para un primer prototipo ([Wireframes](https://www.lucidchart.com/pages/es/que-es-un-wireframe-para-un-sitio-web)). Este tarea es común que sea encomendada a el equipo de desarrollo y diseño en conjunto, si es que se cuenta con uno.
+
+
+
+# 3. Controlador
+El controlador establece la comunicación entre el cliente y nuestro servidor. Aquí es común encontrarnos con el patrón CRUD para permitirle al cliente realizar operaciones básicas con nuestros modelos. Estas operaciones son:
+
+C - Create (crear)
+
+R - Read (leer)
+
+U - Update (actualizar)
+
+D - Delete (eliminar)
+
+Para la finalidad de este curso asumiremos que AdoptaPet contará con una arquitectura cliente-servidor y con equipos independientes de frontend y backend. Para que el sistema que desarrolle frontend se comunique con nuestro backend crearemos una "interfaz" o API en la siguiente sesión.
+
+
+# Modularizar el proyecto para seguir el MVC.
+
+Teniendo la estructura de archivos del proyecto siguiente, se modularizara el proyecto para seguir MVC.
+
+[Estructura del proyecto](../adoptapet-api)
+```
+adoptapet-api/
+    ├── config/
+    ├── models/
+        ├──Mascota.js
+        ├──Solicitud.js
+        ├──Usuario.js
+    ├── controllers/
+        ├──mascotas.js
+        ├──usuarios.js
+        ├──solicitudes.js
+    ├── routes/
+        ├──index.js
+        ├──mascotas.js
+        ├──usuarios.js
+        ├──solicitudes.js
+    ├── app.js
+```
+
+En el directorio raíz tenemos el archivo principal llamado `app.js`. En este archivo estamos definiendo que una vez que se tenga la direccion del servidor con `/v1` (version numero 1 de nuestra API) nos dirigiremos al directorio `routes/` y por defecto este se dirigira al archivo principal llamado `index.js`.
+
+**Codigo de `app.js`**
+```javascript
+const express = require('express');
+const app = express();
+
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use('/v1', require('./routes'))
+
+const PORT = 4001;
+app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
+});
+```
+
+## Models
+
+Estos tres elementos (usuarios, mascotas y solicitudes) serán nuestros modelos. Utilizando programación orientada a objetos podemos crear una clase para cada uno y así posteriormente el usuario podrá utilizar estos modelos creando instancias y obteniéndolas.
+
+Para esto en la carpeta [`models`](./../adoptapet-api/models) se crearan 3 archivos en los cuales se crea una clase la cual sera exportada para poder crear instancias y obtenerlas.
+A continuacion se muestra el codigo de cada archivo.
+
 ```javascript
 // Mascota.js
 
@@ -87,68 +157,9 @@ module.exports = Solicitud;
 
 ```
 
-# 2. Vista
-
-Cuando iniciamos un proyecto desde cero, es recomendable diseñar y documentar nuestras vistas por medio de bocetos de las interfaces necesarias para un primer prototipo ([Wireframes](https://www.lucidchart.com/pages/es/que-es-un-wireframe-para-un-sitio-web)). Este tarea es común que sea encomendada a el equipo de desarrollo y diseño en conjunto, si es que se cuenta con uno.
 
 
-
-# 3. Controlador
-El controlador establece la comunicación entre el cliente y nuestro servidor. Aquí es común encontrarnos con el patrón CRUD para permitirle al cliente realizar operaciones básicas con nuestros modelos. Estas operaciones son:
-
-C - Create (crear)
-
-R - Read (leer)
-
-U - Update (actualizar)
-
-D - Delete (eliminar)
-
-Para la finalidad de este curso asumiremos que AdoptaPet contará con una arquitectura cliente-servidor y con equipos independientes de frontend y backend. Para que el sistema que desarrolle frontend se comunique con nuestro backend crearemos una "interfaz" o API en la siguiente sesión.
-
-
-# Modularizar el proyecto para seguir el MVC.
-
-Teniendo la estructura de archivos del proyecto siguiente, se modularizara el proyecto para seguir MVC.
-
-[Estructura del proyecto](../adoptapet-api)
-```
-adoptapet-api/
-    ├── config/
-    ├── models/
-        ├──Mascota.js
-        ├──Solicitud.js
-        ├──Usuario.js
-    ├── controllers/
-        ├──mascotas.js
-        ├──usuarios.js
-        ├──solicitudes.js
-    ├── routes/
-        ├──index.js
-        ├──mascotas.js
-        ├──usuarios.js
-        ├──solicitudes.js
-    ├── app.js
-```
-
-En el directorio raíz tenemos el archivo principal llamado `app.js`. En este archivo estamos definiendo que una vez que se tenga la direccion del servidor con `/v1` (version numero 1 de nuestra API) nos dirigiremos al directorio `routes/` y por defecto este se dirigira al archivo principal llamado `index.js`.
-
-**Codigo de `app.js`**
-```javascript
-const express = require('express');
-const app = express();
-
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
-app.use('/v1', require('./routes/index'))
-
-const PORT = 4001;
-app.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
-});
-```
+## Routes
 
 Al siguiente archivo al que se dirige la aplicacion es `routes/index.js`. En este archivo estamos definiendo mini aplicaciones de express llamadas Router. Una vez que se definen estas mini aplicaciones estamos definiendo que se usara dependiendo la ruta que se asigna en este caso estamos definiendo que cuando se tenga la direccion `/v1/usuarios` o `/v1/mascotas` se estara usando el modulo que se exporto en el correspondiente archivo que se encuentra en la carpeta `/controllers/mascotas.js` o `/controllers/usuarios.js`
 
@@ -165,6 +176,8 @@ router.use('/mascotas', require('./mascotas'));
 
 module.exports = router;
 ```
+
+## Controladores
 
 Los siguientes archivos los cuales estra usando seran los archivos de la carpeta de `/controllers` en estos archivos se estan definiendo los servicios correspondientes a cada una de las entidades. En estos codigos se esta definiendo los servicios CRUD que se estaran usando para cada una de las entidades.
 
@@ -257,3 +270,6 @@ module.exports = {
   eliminarUsuario
 }
 ```
+
+## Conclusiones
+De esta manera modularizando nuestra aplicación se tiene el proyecto mas organizado de una manera esquematizada y si por alguna razon llega haber algún tipo de error en nuestro codigo es mas facil solucionarlo, de igual manera es mejor el entendimiento del funcionamiento del proyecto y sera mejor el mantenimiento de la misma.
