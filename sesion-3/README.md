@@ -74,7 +74,7 @@ adoptapet-api/
 
 En el directorio raíz tenemos el archivo principal llamado `app.js`. En este archivo estamos definiendo que una vez que se tenga la direccion del servidor con `/v1` (version numero 1 de nuestra API) nos dirigiremos al directorio `routes/` y por defecto este se dirigira al archivo principal llamado `index.js`.
 
-**Codigo de `app.js`**
+[Archivo principal `app.js`](../adoptapet-api/app.js)
 ```javascript
 const express = require('express');
 const app = express();
@@ -98,6 +98,7 @@ Estos tres elementos (usuarios, mascotas y solicitudes) serán nuestros modelos.
 Para esto en la carpeta [`models`](./../adoptapet-api/models) se crearan 3 archivos en los cuales se crea una clase la cual sera exportada para poder crear instancias y obtenerlas.
 A continuacion se muestra el codigo de cada archivo.
 
+[Modelo `Mascota.js`](../adoptapet-api/models/Mascota.js)
 ```javascript
 // Mascota.js
 
@@ -120,6 +121,7 @@ class Mascota{
 
 ```
 
+[Modelo `Usuario.js`](../adoptapet-api/models/Usuario.js)
 ```javascript
 // Usuario.js
 /** Clase que representa a un usuario de la plataforma*/
@@ -138,6 +140,7 @@ module.exports = Usuario;
 
 ```
 
+[Modelo `Solicitud.js`](../adoptapet-api/models/Solicitud.js)
 ```javascript
 // Solicitud.js
 /** Clase que representa una solicitud de adopción */
@@ -157,13 +160,11 @@ module.exports = Solicitud;
 
 ```
 
-
-
 ## Routes
 
 Al siguiente archivo al que se dirige la aplicacion es `routes/index.js`. En este archivo estamos definiendo mini aplicaciones de express llamadas Router. Una vez que se definen estas mini aplicaciones estamos definiendo que se usara dependiendo la ruta que se asigna en este caso estamos definiendo que cuando se tenga la direccion `/v1/usuarios` o `/v1/mascotas` se estara usando el modulo que se exporto en el correspondiente archivo que se encuentra en la carpeta `/controllers/mascotas.js` o `/controllers/usuarios.js`
 
-**Codigo de `index.js`**
+[Archivo principal de Routes `index.js`](../adoptapet-api/routes/index.js)
 ```javascript
 let router = require('express').Router();
 
@@ -182,6 +183,7 @@ Una vez que se accede al archivo de `index.js` en este codigo dirigiremos a cada
 
 El codigo de cada una de las entidades son las llamadas a las funciones de los servicios CRUD, los codigos para cada entidad son los siguientes.
 
+[Route `mascotas.js`](../adoptapet-api/routes/mascotas.js)
 ```javascript
 const router = require('express').Router();
 
@@ -199,7 +201,7 @@ router.delete('/:id', eliminarMascota)
 
 module.exports = router;
 ```
-
+[Route `solicitudes.js`](../adoptapet-api/routes/solicitudes.js)
 ```javascript
 let router = require('express').Router()
 
@@ -217,7 +219,7 @@ router.delete('/:id', eliminarSolicitud);
 
 module.exports = router;
 ```
-
+[Route `usuarios.js`](../adoptapet-api/routes/usuarios.js)
 ```javascript
 const router = require('express').Router();
 
@@ -240,7 +242,8 @@ module.exports = router;
 
 Los siguientes archivos los cuales estra usando seran los archivos de la carpeta de `/controllers` en estos archivos se estan definiendo los servicios correspondientes a cada una de las entidades. En estos codigos se esta definiendo los servicios CRUD que se estaran usando para cada una de las entidades.
 
-**Codigo de los archivos de controladores `/controllers/mascotas.js` y `/controllers/usuarios.js`**
+
+[Controlador `mascotas.js`](../adoptapet-api/controllers/mascotas.js)
 
 ```javascript
 const Mascota = require('../models/Mascota')
@@ -274,7 +277,7 @@ module.exports = {
 }
 
 ```
-
+[Controlador `usuarios.js`](../adoptapet-api/controllers/usuarios.js)
 ```javascript
 // importamos el modelo de usuarios
 const Usuario = require('../models/Usuario')
@@ -329,6 +332,8 @@ module.exports = {
   eliminarUsuario
 }
 ```
+
+[Controlador `solicitudes.js`](../adoptapet-api/controllers/solicitudes.js)
 ```javascript
 const Solicitud = require('../models/Solicitud')
 
