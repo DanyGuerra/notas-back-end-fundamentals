@@ -261,7 +261,7 @@ function obtenerMascota(req, res) {
 
 function modificarMascota(req, res) {
   let modificaciones = req.body
-  mascota1 = { ...usuario1, ...modificaciones}
+  mascota1 = { ...mascota1, ...modificaciones}
   res.send(mascota1)
 }
 
@@ -406,6 +406,17 @@ Para realizar estos pruebas corremos el servidor local ejecutando el comando `np
 - Dirección: `http://localhost:4001/v1/mascotas`
   ![Metodo get usuarios](./images/adoptapet-mascotas-get.png)
 
+2. Metodo `POST`
+- Dirección: `http://localhost:4001/v1/mascotas`
+  ![Metodo get usuarios](./images/adoptapet-mascotas-post.png)
+
+3. Metodo `PUT`
+- Dirección: `http://localhost:4001/v1/mascotas/2`
+  ![Metodo get usuarios](./images/adoptapet-mascotas-put.png)
+
+4. Metodo `DELETE`
+- Dirección: `http://localhost:4001/v1/mascotas/1`
+  ![Metodo get usuarios](./images/adoptapet-mascotas-delete.png)
 
 ## Conclusiones
 De esta manera modularizando nuestra aplicación se tiene el proyecto mas organizado de una manera esquematizada y si por alguna razon llega haber algún tipo de error en nuestro codigo es mas facil solucionarlo, de igual manera es mejor el entendimiento del funcionamiento del proyecto y sera mejor el mantenimiento de la misma.
