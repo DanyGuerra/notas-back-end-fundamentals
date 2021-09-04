@@ -370,5 +370,11 @@ module.exports = {
 
 
 ```
+
+## Resultados
+Para comprobar los resultados de nuestra API se utilizara [Insomnia](https://insomnia.rest/) o [Postman](https://www.postman.com/), estos software simula un cliente para realizar peticiones HTTP.
+
+Para realizar estos pruebas corremos el servidor local ejecutando el comando `npm run dev`, una vez ejecutando este comando podemos relizar las peticiones al servidor local en el puerto que se definio en este caso al servidor local `http://localhost:4001/`. Lo siguiente sera probar cada uno de los servicios mandando las peticiones correspondientes.
+
 ## Conclusiones
 De esta manera modularizando nuestra aplicación se tiene el proyecto mas organizado de una manera esquematizada y si por alguna razon llega haber algún tipo de error en nuestro codigo es mas facil solucionarlo, de igual manera es mejor el entendimiento del funcionamiento del proyecto y sera mejor el mantenimiento de la misma.
