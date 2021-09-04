@@ -3,7 +3,7 @@ const Solicitud = require('../models/Solicitud')
 // CRUD
 
 function crearSolicitud(req, res){
-  let solicitud = new Solicitud(req.body);
+  let solicitud = new Solicitud(...Object.values(req.body));
   res.status(200).send(solicitud);
 }
 
@@ -14,7 +14,7 @@ function obtenerSolicitud(req, res){
 }
 
 function modificarSolicitud(req, res){
-  let solicitud = new Solicitud(req.params.id,2, '25/06/2021', 3, 2, 'Activa')
+  let solicitud = new Solicitud(parseInt(req.params.id), 2, '25/06/2021', 3, 2, 'Activa')
   let modificaciones = req.body
   solicitud = {...solicitud,...modificaciones }
   res.send(solicitud)
