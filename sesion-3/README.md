@@ -376,5 +376,36 @@ Para comprobar los resultados de nuestra API se utilizara [Insomnia](https://ins
 
 Para realizar estos pruebas corremos el servidor local ejecutando el comando `npm run dev`, una vez ejecutando este comando podemos relizar las peticiones al servidor local en el puerto que se definio en este caso al servidor local `http://localhost:4001/`. Lo siguiente sera probar cada uno de los servicios mandando las peticiones correspondientes.
 
+### Pagina principal
+
+1. Metodo: `GET`
+- Dirección: `http://localhost:4001/v1`
+
+![Servicio de pagina principal](./images/adoptapet-principal-get.png)
+
+### Usuarios
+
+1. Metodo `GET`
+- Dirección: `http://localhost:4001/v1/usuarios`
+  ![Metodo get usuarios](./images/adoptapet-usuarios-get.png)
+
+2. Metodo `POST`
+- Dirección: `http://localhost:4001/v1/usuarios`
+  ![Metodo get usuarios](./images/adoptapet-usuarios-post.png)
+
+3. Metodo `PUT`
+- Dirección: `http://localhost:4001/v1/usuarios/2`
+  ![Metodo get usuarios](./images/adoptapet-usuarios-put.png)
+
+4. Metodo `DELETE`
+- Dirección: `http://localhost:4001/v1/usuarios/2`
+  ![Metodo get usuarios](./images/adoptapet-usuarios-delete.png)
+
+### Mascotas
+1. Metodo `GET`
+- Dirección: `http://localhost:4001/v1/mascotas`
+  ![Metodo get usuarios](./images/adoptapet-mascotas-get.png)
+
+
 ## Conclusiones
 De esta manera modularizando nuestra aplicación se tiene el proyecto mas organizado de una manera esquematizada y si por alguna razon llega haber algún tipo de error en nuestro codigo es mas facil solucionarlo, de igual manera es mejor el entendimiento del funcionamiento del proyecto y sera mejor el mantenimiento de la misma.

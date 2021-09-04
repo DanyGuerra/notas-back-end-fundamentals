@@ -33,7 +33,7 @@ function obtenerUsuarios(req, res) {
 
 function modificarUsuario(req, res) {
   // simulando un usuario previamente existente que el cliente modifica
-  let usuario1 = new Usuario(req.params.id, 'Juan', 'Vega', 'juan@vega.com')
+  let usuario1 = new Usuario(parseInt(req.params.id), 'Jhon','Juan', 'Vega', 'juan@vega.com', '1234567', 'admin')
   let modificaciones = req.body
   usuario1 = { ...usuario1, ...modificaciones}
   res.send(usuario1)
