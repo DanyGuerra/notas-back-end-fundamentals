@@ -1,28 +1,54 @@
-const Mascota = require('../models/Mascota')
-// var mascota1 = new Mascota(1, 'Tobi', 'Perro', 'https://petstore/photo-tobi', 'Es muy tranquilo', 'Juan', 'Jalisco')
-// var mascota2 = new Mascota(2, 'Manchas', 'Gato', 'https://petstore/photo-manchas', 'Es muy jugueton', 'Maria', 'Jalisco')
+const moongose = require('mongoose')
+const Mascota = moongose.model('Mascota')
 
-var mascota1 = 1;
-var mascota2 = 2;
-
-function crearMascota(req, res) {
-  let mascota = new Mascota(...Object.values(req.body));
-  res.status(201).send(mascota);
+function crearMascota(req, res, next) {
+  let mascota = new Mascota(req.body);
+  mascota.save().then(mas => {
+    res.status(200).send(mas)
+  }).catch(next)
 }
 
-function obtenerMascota(req, res) {
-    res.send([mascota1, mascota2])
+function obtenerMascota(req, res, next){
+  if(req.params.id){
+    Mascota.findById(req.params.id).then(mascota => {
+        res.send(mascota)
+      }).catch(next)
+  } else {
+    Mascota.find().then(mascotas => {
+      res.send(mascotas)
+    }).catch(next)
+  }
 }
 
-function modificarMascota(req, res) {
-  let modificaciones = req.body
-  mascota1 = { ...mascota1, ...modificaciones}
-  res.send(mascota1)
+function modificarMascota(req, res,next){
+   Mascota.findById(req.params.id).then(mascota => {
+      if (!mascota) { return res.sendStatus(401); }
+      let nuevaInfo = req.body
+      if (typeof nuevaInfo.nombre !== 'undefined')
+        mascota.nombre = nuevaInfo.nombre
+      if (typeof nuevaInfo.categoria !== 'undefined')
+        mascota.categoria = nuevaInfo.categoria
+      if (typeof nuevaInfo.fotos !== 'undefined')
+        mascota.fotos = nuevaInfo.fotos
+      if (typeof nuevaInfo.descripcion !== 'undefined')
+        mascota.descripcion = nuevaInfo.descripcion
+      if (typeof nuevaInfo.anunciante !== 'undefined')
+        mascota.anunciante = nuevaInfo.anunciante
+      if (typeof nuevaInfo.ubicacion !== 'undefined')
+        mascota.ubicacion = nuevaInfo.ubicacion
+      mascota.save().then(updated => {
+        res.status(201).json(updated.publicData())
+      }).catch(next)
+    }).catch(next)
 }
 
-function eliminarMascota(req, res) {
-  res.status(200).send(`Mascota ${req.params.id} eliminado`);
+
+function eliminarMascota(req, res, next){
+  Mascota.findOneAndDelete({ _id: req.params.id }).then(r => {
+      res.status(200).send(`Mascota ${req.params.id} eliminada: ${r}`);
+    })
 }
+
 
 module.exports = {
   crearMascota,
@@ -30,3 +56,5 @@ module.exports = {
   modificarMascota,
   eliminarMascota
 }
+
+
