@@ -165,3 +165,43 @@ module.exports = {
 }
 
 ```
+
+## Resultados persistencia de datos de Mascotas
+
+Para mostar los resultados se estara usando [Insomnia](https://insomnia.rest/). Para hacer las peticiones ya debemos tener algunos documentos en nuestra coleccion de la base de datos. En este caso en la coleccion "mascotas" de la base de datos "Adoptapet" tenemos 9 documentos de prueba como se muestra a continuacion.
+
+![Image](./images/documentos-Mascotas.png)
+
+### Mascotas
+
+1. Metodo: `GET`
+  - Obteniendo mascota por id
+  ![Image](./images/mascotas-mongo-get-by-id.png)
+
+  - Obteniendo todas las mascotas de la base de datos
+  ![Image](./images/mascotas-mongo-get.png)
+
+2. Metodo `POST`
+
+  ![Image](./images/mascotas-mongo-post.png)
+
+3. Metodo `PUT`
+
+El codigo tiene un error, si esta actualizando el valor y el servicio de PUT funciona correctamente, pero no devuelve el JSON del documento que se ha actualizado.
+
+  ![Image](./images/mascotas-mongo-put.png)
+
+4. Metodo `DELETE`
+Documento eliminado por si se necesita restaurar despues
+```javascript
+{
+  _id: new ObjectId("613a81b02d3b49aed33a93cb"),
+  nombre: 'El Drupi',
+  categoria: 'Perro',
+  fotos: 'http://c.files.bbci.co.uk/48DD/production/_107435681_perro1.jpg',
+  descripcion: 'corre y come mucho, necestita espacio amplio', anunciante: new ObjectId("61302de182ba22a3c3048d59"), ubicacion: 'Estado de Mexico',
+  createdAt: 2021-09-09T21:50:40.938Z,
+  updatedAt: 2021-09-09T22:00:37.186Z,
+  __v: 0 }
+```
+  ![Image](./images/mascotas-mongo-delete.png)
