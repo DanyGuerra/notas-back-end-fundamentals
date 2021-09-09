@@ -16,14 +16,28 @@
 const mongoose = require("mongoose");
 
 const SolicitudSchema = new mongoose.Schema({
-    idMascota: { required: true, type: mongoose.Schema.Types.ObjectId, ref: "Mascota" },
-    fechaDeCreacion: { type: Date, required: true },
-    idUsuarioAnunciante: { type: mongoose.Schema.Types.ObjectId, ref: "Usuario" },
-    idUsuarioSolicitante: { type: mongoose.Schema.Types.ObjectId, ref: "Usuario"  },
-    estado: { type: String, enum: ["adoptado", "disponible", "pendiente"] },
-  },
-  {collection: "Solicitudes", timestamps: true}
-);
+    idMascota: {
+      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Mascota"
+    },
+    fechaDeCreacion: {
+      type: Date,
+      required: true
+    },
+    idUsuarioAnunciante: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Usuario"
+    },
+    idUsuarioSolicitante: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Usuario"
+    },
+    estado: {
+      type: String,
+      enum: ["adoptado", "disponible", "pendiente"]
+    }
+  }, {collection: "Solicitudes", timestamps: true});
 
 SolicitudSchema.methods.publicData = () => {
   return {

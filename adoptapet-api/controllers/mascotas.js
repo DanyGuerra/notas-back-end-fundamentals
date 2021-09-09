@@ -42,13 +42,11 @@ function modificarMascota(req, res,next){
     }).catch(next)
 }
 
-
 function eliminarMascota(req, res, next){
   Mascota.findOneAndDelete({ _id: req.params.id }).then(r => {
       res.status(200).send(`Mascota ${req.params.id} eliminada: ${r}`);
     })
 }
-
 
 module.exports = {
   crearMascota,

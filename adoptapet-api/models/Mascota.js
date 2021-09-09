@@ -24,7 +24,7 @@ const MascotaSchema = new mongoose.Schema({
     type: String,
     enum: ['Perro', 'Gato', 'Otro']
   },
-  foto: String,
+  fotos: String,
   descripcion:{
     type: String,
     required: true
@@ -35,7 +35,8 @@ const MascotaSchema = new mongoose.Schema({
   },
   ubicacion: String
 
-}, {collection: "Mascotas", timestamps: true});
+}, {collection: "Mascotas", timestamps: true});// Nombre de la coleccion como esta en Mongo
+
 
 
 MascotaSchema.methods.publicData = () => {
