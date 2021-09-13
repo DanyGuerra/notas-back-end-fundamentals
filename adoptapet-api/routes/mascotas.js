@@ -4,7 +4,8 @@ const {
   crearMascota,
   obtenerMascota,
   modificarMascota,
-  eliminarMascota
+  eliminarMascota,
+  contador
 } = require('../controllers/mascotas');
 
 router.get('/', obtenerMascota)
