@@ -205,3 +205,55 @@ Documento eliminado por si se necesita restaurar despues
   __v: 0 }
 ```
   ![Image](./images/mascotas-mongo-delete.png)
+
+
+## Agregaciones
+En este ejemplo se haran uso de las agregaciones de Mongo para ello se agregara una funcion en el archivo `controllers/mascotas.js` llamada contador. Esta funcion se hara cargo de contar el numero de documentos que coincidan con la categoria que le estemos pasando como parametro ya sea "Perro", "Gato" o "Otro". Igual que las demas funciones esta funcion que acabamos de crear se debe exportar para que pueda ser usada en Routes.
+
+Codigo de la funcion.
+
+```javascript
+function contador(req,res,next) {
+  var categoria = req.params.cat
+  Mascota.aggregate([
+    {'$match': { 'categoria': categoria}},
+    {'$count': 'total'}
+  ]).then(r => {
+    res.status(200).send(r)
+  })
+}
+
+module.exports = {
+  crearMascota,
+  obtenerMascota,
+  modificarMascota,
+  eliminarMascota,
+  contador
+}
+```
+
+Agregamos la ruta para poder usar el servicio en el archivo `routes/mascotas.js`.
+
+Código del archivo `routes/mascotas.js`
+
+```javascript
+router.get('/count/:cat', contador);
+```
+
+### Resultados
+
+Contando el numero de documentos con la categoria "Perro".
+
+![Image](./images/mascotas-mongo-agregaciones-contador-perro.png)
+
+Contando el numero de documentos con la categoria "Gato".
+
+![Image](./images/mascotas-mongo-agregaciones-contador-gato.png)
+
+Contando el numero de documentos con la categoria "Otro".
+
+![Image](./images/mascotas-mongo-agregaciones-contador-otro.png)
+
+
+
+
