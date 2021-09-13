@@ -176,9 +176,11 @@ Para mostar los resultados se estara usando [Insomnia](https://insomnia.rest/). 
 
 1. Metodo: `GET`
   - Obteniendo mascota por id
+
   ![Image](./images/mascotas-mongo-get-by-id.png)
 
   - Obteniendo todas las mascotas de la base de datos
+
   ![Image](./images/mascotas-mongo-get.png)
 
 2. Metodo `POST`
