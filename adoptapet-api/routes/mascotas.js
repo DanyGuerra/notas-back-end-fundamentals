@@ -9,8 +9,10 @@ const {
 
 router.get('/', obtenerMascota)
 router.get('/:id', obtenerMascota)
+router.get('/count/:cat', contador);
 router.post('/', crearMascota)
 router.put('/:id', modificarMascota)
 router.delete('/:id', eliminarMascota)
+
 
 module.exports = router;
