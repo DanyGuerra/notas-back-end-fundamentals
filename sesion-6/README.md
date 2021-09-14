@@ -210,9 +210,27 @@ Documento eliminado por si se necesita restaurar despues
 
 
 ## Agregaciones
+
+Para usar una agregacion en moongose se utiliza un arreglo de la siguiente forma:
+
+```javascript
+[
+  {
+    '$match': {
+      'categoria': 'Gato'
+    }
+  }, {
+    '$count': 'total'
+  }
+]
+
+```
+
 En este ejemplo se haran uso de las agregaciones de Mongo para ello se agregara una funcion en el archivo `controllers/mascotas.js` llamada contador. Esta funcion se hara cargo de contar el numero de documentos que coincidan con la categoria que le estemos pasando como parametro ya sea "Perro", "Gato" o "Otro". Igual que las demas funciones esta funcion que acabamos de crear se debe exportar para que pueda ser usada en Routes.
 
-Codigo de la funcion.
+La funcion `aggregate()` ejecuta una agregacion, la cual se la pasaremos como un arreglo con cada una de las etapas de la agregacion.
+
+Codigo de la funcion en el archivo `controllers/mascotas.js`
 
 ```javascript
 function contador(req,res,next) {
@@ -236,7 +254,7 @@ module.exports = {
 
 Agregamos la ruta para poder usar el servicio en el archivo `routes/mascotas.js`.
 
-Código del archivo `routes/mascotas.js`
+Código agregado en el archivo `routes/mascotas.js`
 
 ```javascript
 router.get('/count/:cat', contador);
