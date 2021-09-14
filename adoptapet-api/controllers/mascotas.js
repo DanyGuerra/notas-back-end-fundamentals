@@ -56,6 +56,7 @@ function contador(req,res,next) {
   ]).then(r => {
     res.status(200).send(r)
   })
+  .catch(next)
 }
 
 module.exports = {

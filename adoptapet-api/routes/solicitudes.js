@@ -4,10 +4,12 @@ let {
   crearSolicitud,
   obtenerSolicitud,
   modificarSolicitud,
-  eliminarSolicitud
+  eliminarSolicitud,
+  count
 } = require('../controllers/solicitudes');
 
 router.get('/', obtenerSolicitud);
+router.get('/count/:id', count);
 router.post('/', crearSolicitud);
 router.put('/:id', modificarSolicitud);
 router.delete('/:id', eliminarSolicitud);

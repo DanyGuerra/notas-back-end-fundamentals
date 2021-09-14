@@ -2,32 +2,57 @@ const Solicitud = require('../models/Solicitud')
 
 // CRUD
 
-function crearSolicitud(req, res){
-  let solicitud = new Solicitud(...Object.values(req.body));
-  res.status(200).send(solicitud);
+function crearSolicitud(req, res, next) {
+  let solicitud = new Solicitud(req.body);
+  solicitud
+    .save()
+    .then((solicitud) => {
+      res.status(200).send(solicitud);
+    })
+    .catch(next);
 }
 
-function obtenerSolicitud(req, res){
-  let solicitud1 = new Solicitud(1, 2, '25/06/2021', 3, 2, 'Activa')
-    let solicitud2 = new Solicitud(2, 5, '5/12/2021', 4, 1, 'Rechazada')
-    res.send([solicitud1,solicitud2])
+function obtenerSolicitud(req, res, next){
+  if(req.params.id){
+    Solicitud.findById(req.params.id).then(sol => {
+        res.send(sol)
+      }).catch(next)
+  } else {
+    Solicitud.find().then(solicitudes => {
+      res.send(Solicitudes)
+    }).catch(next)
+  }
 }
 
 function modificarSolicitud(req, res){
-  let solicitud = new Solicitud(parseInt(req.params.id), 2, '25/06/2021', 3, 2, 'Activa')
-  let modificaciones = req.body
-  solicitud = {...solicitud,...modificaciones }
-  res.send(solicitud)
+
 }
 
-function eliminarSolicitud(req, res){
-  res.status(200).send(`La solicitud ${req.params.id} se elimino`)
+function eliminarSolicitud(req, res, next){
+    Solicitud.findOneAndDelete({ _id: req.params.id })
+      .then(r => {
+            res.status(200)
+                .send(`Solicitud ${req.params.id} eliminada: ${r}`);
+      }).catch(next)
+}
+
+function count(req, res, next) {
+  let idMascota = req.params.id;
+  Solicitud.aggregate([
+    { $match: { idMascota: idMascota } },
+    { $count: 'total' },
+  ])
+    .then(r => {
+      res.status(200).send(r);
+    })
+    .catch(next);
 }
 
 module.exports = {
   crearSolicitud,
   obtenerSolicitud,
   modificarSolicitud,
-  eliminarSolicitud
+  eliminarSolicitud,
+  count
 }
 
