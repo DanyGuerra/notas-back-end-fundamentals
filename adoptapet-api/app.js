@@ -15,6 +15,8 @@ require('./models/Usuario')
 require('./models/Mascota')
 require('./models/Solicitud')
 
+require('./config/passport');
+
 // Rutas
 app.use('/v1', require('./routes/index'))
 
