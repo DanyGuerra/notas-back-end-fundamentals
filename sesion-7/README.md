@@ -6,3 +6,9 @@
 
 ### POST
 ![Imagen](./images/post-usuario.png)
+
+
+![Imagen](./images/getbytoken-usuario.png)
+
+
+![Imagen](./images/getbytoken-usuario-ejemplo.png)
