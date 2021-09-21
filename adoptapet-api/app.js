@@ -15,6 +15,7 @@ require('./models/Usuario')
 require('./models/Mascota')
 require('./models/Solicitud')
 
+// Al final se importa passport ya que se usan los modelos en la configuracion de passport
 require('./config/passport');
 
 // Rutas

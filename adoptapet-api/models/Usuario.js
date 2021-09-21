@@ -61,7 +61,7 @@ const UsuarioSchema = new mongoose.Schema({
   hash: String, //Contrasena cifrada
   salt: String //Semilla de cifrado
 
-},{ timestamps: true, collection: "Usuarios",}
+},{ timestamps: true, collection: "Usuarios"}
 );
 
 

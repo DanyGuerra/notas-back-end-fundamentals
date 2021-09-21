@@ -6,6 +6,7 @@ const {
   eliminarUsuario,
   iniciarSesion
 } = require('../controllers/usuarios')
+
 const auth = require('./auth');
 
 router.get('/', auth.requerido, obtenerUsuarios)
