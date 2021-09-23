@@ -8,7 +8,8 @@ app.use(bodyParser.json());
 
 // Configuracion de la base de datos
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://danyguerra:adoptapetAPI@cluster0.tf5ep.mongodb.net/Adoptapet?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://danyguerra:adoptapetAPI@cluster0.tf5ep.mongodb.net/Adoptapet?retryWrites=true&w=majority',
+{ useNewUrlParser: true });
 
 mongoose.set("debug", true);
 
